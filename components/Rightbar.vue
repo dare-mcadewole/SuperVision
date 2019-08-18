@@ -91,6 +91,11 @@
     box-shadow: 0 1px 2px rgba(0,0,0,0.07);
 }
 
+h2.subtitle {
+    margin-top: 1em;
+    font-weight: 500 !important;
+}
+
 .control-button {
     border-radius: 2em;
     /* width: 1em;
@@ -117,5 +122,11 @@
 
 .switch {
     margin: .3em 0 0;
+}
+
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    .sv-rightbar {
+        /* display: none; */
+    }
 }
 </style>

@@ -89,4 +89,12 @@ video {
     border-radius: 20px;
     background: rgba(0,0,0,0);
 }
+
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    video {
+        /* height: calc(); */
+        /* height: calc(10% - 33.5px); */
+        height: 200px;
+    }
+}
 </style>

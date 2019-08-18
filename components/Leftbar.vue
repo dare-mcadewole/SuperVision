@@ -152,6 +152,7 @@
 
 h2.sv-zone-number {
     margin-top: 1em;
+    font-weight: 500 !important;
 }
 
 .switch {
@@ -159,9 +160,9 @@ h2.sv-zone-number {
 }
 
 .button {
-    background: #0A0A0A;
-    border-color: #0A0A0A;
-    box-shadow: 0 25px 85px #444;
+    background: #000000;
+    border-color: #000;
+    box-shadow: 0 25px 85px #000;
     border-radius: 6px !important;
 }
 
@@ -181,7 +182,7 @@ h2.sv-zone-number {
 .button.is-small {
     margin: 0;
     border-radius: 0 0 6px 6px !important;
-    height: 3em;
+    height: 3.5em;
 }
 
 .button.is-small:hover {
@@ -212,5 +213,11 @@ h2.sv-zone-number {
 
 .zone-loader h6 {
     margin-top: 1em;
+}
+
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    .sv-leftbar {
+        display: none;
+    }
 }
 </style>

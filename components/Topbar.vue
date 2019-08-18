@@ -43,4 +43,10 @@ p {
     margin: 0;
     font-size: 14px;
 }
+
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    h1.title {
+        font-size: 23px;
+    }
+}
 </style>

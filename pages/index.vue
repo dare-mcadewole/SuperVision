@@ -19,6 +19,11 @@
           </div>
           <Rightbar />
         </div>
+        <!-- Mobile -->
+        <div key="3" class="main-mobile">
+          <Topbar />
+          <VideoStream />
+        </div>
       </div>
     </transition>
   </section>
@@ -63,16 +68,31 @@ export default {
   background: #111;
   /* margin: 1em; */
 }
-div.main {
+
+.main {
   float: left;
   width: -webkit-fill-available;
   height: 100vh;
   margin-left: 300px;
 }
 
-div.main > div {
+.main-mobile {
+  display: none;
+}
+
+.main > div {
   height: 100vh;
   clear: both;
   margin-right: 300px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 640px) {
+  .main {
+    display: none;
+  }
+
+  .main-mobile {
+    display: block;
+  }
 }
 </style>
