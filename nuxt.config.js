@@ -9,7 +9,16 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Anti-Vandalism Supervisory Panel. Remote Surveillance with System Controls and Sensors Tracking. PIR Sensor, Doppler, Intrusion System.'
+      },
+      {
+        hid: 'keywords',
+        name: 'keywords',
+        content: 'vandalism, supervisory, panel, surveillance, remote surveillance, system controls, sensor, tracking, PIR, doppler, dopler, intrusion, intrusion system'
+      }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
