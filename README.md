@@ -1,8 +1,13 @@
-# checkr
+# Super+Vision
 
-> Results and Spreadsheet checker for UNILORIN
+> Anti-Vandalism Supervisory Panel 
+(Remote Surveillance with System control)
 
 ## Build Setup
+
+- Clone the repo using `git clone https://github.com/dare-mcadewole/SuperVision.git`
+
+- Proceed using the following commands:
 
 ``` bash
 # install dependencies
@@ -19,4 +24,9 @@ $ yarn start
 $ yarn generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+## Author
+
+- Dare McAdewole
+Software Developer
+[@dare_mcadewole](https://twitter.com/@dare_mcadewole)
+[Gmail](mailto:dare.dev.adewole@gmail.com)
