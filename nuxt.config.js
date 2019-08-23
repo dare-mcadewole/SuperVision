@@ -42,6 +42,11 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/Http',
+    {
+      src: '~/plugins/VueSocket',
+      ssr: false
+    }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -63,6 +68,12 @@ module.exports = {
   */
   axios: {
   },
+  /*
+  ** Nuxt Server configuration
+  */
+ server: {
+   port: 8080
+ },
   /*
   ** Build configuration
   */

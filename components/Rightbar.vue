@@ -3,78 +3,43 @@
         enter-active-class="animated fadeIn"
         leave-active-class="animated fadeOut" appear>
         <section class="sv-rightbar side-dark">
-            <!-- <h6 class="is-size-7 has-text-weight-bold has-text-grey">
-                <i class="icofont-wrench"></i>
-                SYSTEM CONTROLS
-            </h6> -->
             <h2 class="subtitle yellow-text">
                 <i class="icofont-wrench"></i>
                 System Controls
             </h2>
 
             <div>
-                <Card icon="alarm" :index="0">
-                    <div slot="title" class="has-text-weight-bold">
-                        Alarm Control
-                    </div>
-                    <div slot="detail" class="has-text-weight-bold">
-                        <button class="control-button" @click="soundAlarm">
-                            Sound Alarm <i class="icofont-play-alt-1"></i>
-                        </button>
-                        <b-switch v-model="alarmControl" type="is-success" size="is-small" />
-                    </div>
-                </Card>
-
-                <Card icon="skull-danger" :index="1">
-                    <div slot="title" class="has-text-weight-bold">
-                        Protect Zone
-                    </div>
-                    <div slot="detail" class="has-text-weight-bold">
-                        <b-switch v-model="protectZone" type="is-success" size="is-small" />
-                        <!-- <span>({{ protectZone ? 'Armed' : 'Di' }}Armed)</span> -->
-                    </div>
-                </Card>
-
-                <Card icon="shield-alt" :index="2">
-                    <div slot="title" class="has-text-weight-bold">
-                        Override
-                    </div>
-                    <div slot="detail" class="has-text-weight-bold">
-                        <b-switch v-model="override" type="is-success" size="is-small" />
-                    </div>
-                </Card>
+                <AlarmControl />
+                <ProtectZoneControl />
+                <OverrideControl />
+                <AutoProtectControl />
             </div>
         </section>
     </transition>
 </template>
 
 <script>
-    import Card from '@/components/Card'
+    import AlarmControl from '@/components/AlarmControl'
+    import ProtectZoneControl from '@/components/ProtectZoneControl'
+    import OverrideControl from '@/components/OverrideControl'
+    import AutoProtectControl from '@/components/AutoProtectControl'
     export default {
         name: 'rightbar',
 
         components: {
-            Card
+            AlarmControl,
+            ProtectZoneControl,
+            OverrideControl,
+            AutoProtectControl
         },
 
-        data () {
-            return {
-                alarmControl: true,
-                override: true,
-                protectZone: true
-            }
+        mounted () {
+            this.$socket.client.emit('SV_ALL_VALUES', {})
         },
 
         methods: {
-            soundAlarm () {
-                this.$buefy.toast.open({
-                    size: 'is-small',
-                    message: 'Signal sent successfully',
-                    type: 'is-success',
-                    position: 'is-top'
-                })
-            }
-        }
+        },
+
     }
 </script>
 

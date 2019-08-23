@@ -53,7 +53,7 @@
 
 .sv-card {
     /* margin: 1.5em 0; */
-    padding: 1.5em 0;
+    padding: 1.5em 0 1em 0;
     border-bottom: 2px dotted #EAEAEA;
     border-bottom: 2px dotted #202020;
 }

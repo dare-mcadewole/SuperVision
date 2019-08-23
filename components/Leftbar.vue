@@ -4,7 +4,7 @@
         leave-active-class="animated fadeOut" appear>
         <section class="sv-leftbar side-dark">
 
-            <b-loading is-full-page :active.sync="loadingZoneInformation">
+            <b-loading :is-full-page="false" :active.sync="loadingZoneInformation">
                 <div class="zone-loader flex-centered flex-column">
                     <i class="icofont-spinner-alt-2 icofont-3x icofont-spin has-text-grey"></i>
                     <h6 class="has-text-grey is-size-7 has-text-weight-bold">
@@ -18,7 +18,7 @@
                     <b-dropdown @change="loadZoneInformation" aria-role="list" v-model="selectedZone">
                         <b-button
                             size="is-small"
-                            class="has-text-white"
+                            class="has-text-white zone-selector"
                             slot="trigger">
                             <i class="icofont-chart-flow-2"></i>
                             <span class="has-text-weight-bold">
@@ -39,52 +39,9 @@
                 </h2>
 
                 <div>
-                    <Card icon="ui-wifi" :index="0">
-                        <div slot="title" class="has-text-weight-bold">
-                            PIR Sensor
-                        </div>
-                        <div slot="detail" class="has-text-weight-bold">
-                            MOTION {{ pyroE ? 'DETECTED' : 'UNDETECTED' }}
-                            <i class="icofont-check has-text-success" v-if="pyroE"></i>
-                            <i class="icofont-close has-text-danger"  v-else></i>
-                        </div>
-                    </Card>
-
-                    <Card icon="listening" :index="1">
-                        <div slot="title" class="has-text-weight-bold">
-                            Dopler
-                        </div>
-                        <div slot="detail" class="has-text-weight-bold">
-                            MOTION {{ dopler ? 'DETECTED' : 'UNDETECTED' }}
-                            <i class="icofont-check has-text-success" v-if="dopler"></i>
-                            <i class="icofont-close has-text-danger"  v-else></i>
-                        </div>
-                    </Card>
-
-                    <Card icon="thief" :index="2">
-                        <div slot="title" class="has-text-weight-bold">
-                            Intrusion System
-                        </div>
-                        <div slot="detail" class="has-text-weight-bold">
-                            MOTION {{ intrusionSystem ? 'DETECTED' : 'UNDETECTED' }}
-                            <i class="icofont-check has-text-success" v-if="intrusionSystem"></i>
-                            <i class="icofont-close has-text-danger"  v-else></i>
-                        </div>
-                    </Card>
-
-
-                    <Card icon="shield-alt" :index="3">
-                        <div slot="title" class="has-text-weight-bold">
-                            Auto Protect
-                            <span class="has-text-grey-light has-text-weight-bold is-size-7">
-                                ({{ autoProtect ? 'ON' : 'OFF' }})
-                            </span>
-
-                        </div>
-                        <div slot="detail">
-                            <b-switch v-model="autoProtect" type="is-success" size="is-small" />
-                        </div>
-                    </Card>
+                    <PIRSensor />
+                    <DopplerSensor />
+                    <IntrusionSystem />
                 </div>
             </div>
         </section>
@@ -92,26 +49,50 @@
 </template>
 
 <script>
-    import Card from '@/components/Card'
+    import Events from '@/Events'
+    import { mapActions } from 'vuex'
+    import PIRSensor from '@/components/sensors/PIR'
+    import DopplerSensor from '@/components/sensors/Doppler'
+    import IntrusionSystem from '@/components/sensors/IntrusionSystem'
     export default {
         name: 'leftbar',
 
         components: {
-            Card
+            PIRSensor,
+            DopplerSensor,
+            IntrusionSystem
+        },
+
+        mounted () {
+            this.$socket.client.emit('SV_ALL_VALUES', {})
         },
 
         data () {
             return {
                 loadingZoneInformation: false,
                 autoProtect: true,
-                selectedZone: 1,
-                pyroE: 1,
-                dopler: 0,
-                intrusionSystem: 0
+                selectedZone: 1
+            }
+        },
+
+        watch: {
+            selectedZone (val) {
+                this.setZone(val)
+            }
+        },
+
+        sockets: {
+            [Events.SV_SENSOR_DATA] (data) {
+                if (data.zone === this.$store.getters.zone) {
+                    this.$store.dispatch(`set${data.sensor}`, data.state)
+                }
             }
         },
 
         methods: {
+            ...mapActions([
+                'setZone'
+            ]),
             loadZoneInformation () {
                 // this.$buefy.toast.open(`Fetching information for Zone ${this.selectedZone} ... `)
                 this.loadingZoneInformation = true
@@ -160,7 +141,7 @@ h2.sv-zone-number {
 }
 
 .button {
-    background: #000000;
+    background: #111;
     border-color: #000;
     box-shadow: 0 25px 85px #000;
     border-radius: 6px !important;
@@ -179,13 +160,14 @@ h2.sv-zone-number {
     border-radius: 0 !important;
 }
 
-.button.is-small {
+.button.zone-selector {
     margin: 0;
-    border-radius: 0 0 6px 6px !important;
-    height: 3.5em;
+    border-radius: 0 0 12px 12px !important;
+    height: 3.1em;
+    width: 13em;
 }
 
-.button.is-small:hover {
+.button.zone-selector:hover {
     margin: 0;
 }
 
@@ -194,7 +176,8 @@ h2.sv-zone-number {
 }
 
 .loading-overlay .loading-background {
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
 }
 
 .zone-loader {

@@ -51,12 +51,39 @@ export default {
   mounted () {
     setTimeout(() => {
       this.pageLoaded = true
-    }, 3000)
+    }, 1500)
+    // try {
+    //   console.log(this.$socket)
+    // } catch (e) {}
   },
 
   data () {
     return {
       pageLoaded: false
+    }
+  },
+
+  sockets: {
+    connect () {
+      this.$store.dispatch('setIsConnected', true)
+      try {
+        this.$buefy.toast.open({
+          type: 'is-success',
+          message: 'Connected',
+          position: 'is-top'
+        })
+      } catch (e) {}
+    },
+
+    disconnect () {
+      this.$store.dispatch('setIsConnected', false)
+      try {
+        this.$buefy.toast.open({
+          type: 'is-danger',
+          message: 'Disconnected',
+          position: 'is-top'
+        })
+      } catch (e) {}
     }
   }
 }
